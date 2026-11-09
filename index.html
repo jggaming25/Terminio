@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Terminio – Dein Kalender, deine Leute</title>
+  <meta name="description" content="Terminio: Kalender mit Discord-Login, Serienterminen, Freundeskalendern, Live-Abo, Push-Benachrichtigungen und installierbarer App.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#6366f1" id="meta-theme">
+  <meta name="application-name" content="Terminio">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Terminio">
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      try {
+        var pref = localStorage.getItem('terminio-theme') || localStorage.getItem('theme') || 'system';
+        if (!localStorage.getItem('terminio-theme') && pref !== 'system') localStorage.setItem('terminio-theme', pref);
+        var dark = pref === 'dark' || (pref === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        document.documentElement.dataset.themePref = pref;
+        var m = document.getElementById('meta-theme');
+        if (m) m.setAttribute('content', dark ? '#0a0c18' : '#6366f1');
+      } catch (e) {}
+    })();
+  </script>
+  <script src="vendor/supabase.js"></script>
+</head>
+<body>
+  <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div id="app"><div class="boot"><span class="spinner"></span></div></div>
+  <div id="toasts" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">Terminio benötigt JavaScript. Bitte aktiviere JavaScript in deinem Browser.</div></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
